@@ -84,15 +84,11 @@
                     <a href="index.html" class="navbar-brand">
                         <h1 class="text-white fw-bold d-flex align-items-left">
                             <div style="display: inline-block; margin-left: 0;">
-                                <img style="width: 50px; border-radius: 50%;" src="logo/logo.jpeg" alt="Logo"> <span class="ms-2" style="font-size: 1.2rem;">Al-Raheem<span class="text-secondary"> Technologies </span> <span class="ms-2" style="font-size: 0.8rem;">Pvt Ltd</span></span>
-
-
-
-                              </div>
-                                
-                            </span></span>
-                            
-                            
+                                <img style="width: 50px; border-radius: 50%;" src="logo/logo.jpeg" alt="Logo"> 
+                                <span class="ms-2" style="font-size: 1.2rem;">Al-Raheem
+                                    <span class="text-secondary"> Technologies </span> 
+                                <span style="font-size: 0.8rem;">Pvt Ltd</span></span>
+                            </div>
                         </h1>
                     </a>
                 
@@ -183,7 +179,7 @@
         <!-- Navbar End -->
 
        <!-- Get a Quote Section Start -->
-<div class="container-fluid px-0" style=" padding: 50px 0;
+<div class="container-fluid px-0" style=" padding: 0px 0;
                 background-image: url('newimgs/webback.jpg');
                 background-size: cover; /* Cover the entire viewport */
                 background-position: center; /* Center the image */
@@ -191,32 +187,36 @@
                 background-attachment: fixed; /* Keep the image fixed when scrolling */
                 /* Optional: Add a background color as fallback */
                 background-color: #f0f0f0;
-"
-
->
+">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="get-a-quote-content" style="background-color: #1842b6; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                <h6 class="text-secondary h4" style="color: #34a853;">Al Raheem Technologies Pvt Ltd</h6>
-                <h1 class="text-white display-1 mb-4" style="color: #198754;">Get a Quote</h1>
-                <p class="mb-4 text-gray fs-5" style="color: #ffffff;">Please fill out the form below to get a quote for your project.</p>
-                <form>
+        <div class="col-lg-10 p-5">
+            <div class="get-a-quote-content" style="background-color: #111010; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                <h6 class="text-secondary h6" style="color: #34a853;">Al Raheem Technologies Pvt Ltd</h6>
+                <h1 class="text-white  mb-2" style="color: #198754;">Get a Quote</h1>
+                <p class="mb-2 text-gray fs-5" style="color: #ffffff;">Please fill out the form below to get a quote for your project.</p>
+                <form id="quoteForm">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="name" class="text-gray" style="color: #ffffff;">Name:</label>
-                                <input type="text" class="form-control" id="name" placeholder="Your Name" style="height: 45px; margin-bottom: 20px; border-color: #ccc;">
+                                <input type="text" required class="form-control" id="name" placeholder="Your Name" style="height: 45px; margin-bottom: 20px; border-color: #ccc;">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="email" class="text-gray" style="color: #ffffff;">Email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="your@email.com" style="height: 45px; margin-bottom: 20px; border-color: #ccc;">
+                                <input type="email" required class="form-control" id="email" placeholder="your@email.com" style="height: 45px; margin-bottom: 20px; border-color: #ccc;">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="phone" class="text-gray" style="color: #ffffff;">Phone:</label>
+                                <input type="tel" required class="form-control" id="phone" placeholder="Your Phone Number" style="height: 45px; margin-bottom: 20px; border-color: #ccc;">
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                    <!-- <div class="row">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="phone" class="text-gray" style="color: #ffffff;">Phone:</label>
                                 <input type="tel" class="form-control" id="phone" placeholder="Your Phone Number" style="height: 45px; margin-bottom: 20px; border-color: #ccc;">
@@ -233,13 +233,63 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="reason" class="text-gray" style="color: #ffffff;">Reason for Inquiry:</label>
-                        <textarea class="form-control" id="reason" rows="5" placeholder="Please describe your project requirements" style="margin-bottom: 20px; border-color: #ccc;"></textarea>
+                        <textarea class="form-control" id="reason" required rows="3" placeholder="Please describe your project requirements" style="margin-bottom: 20px; border-color: #ccc;"></textarea>
                     </div>
-                    <button type="submit" class="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill" style="background-color: #24b06f; border-color: #2196f3; color: #fff;">Get a Quote</button>
+                    <button type="submit" class="px-2 py-sm-2 px-sm-3 btn btn-primary rounded-pill" style="background-color: #24b06f; border-color: #2196f3; color: #fff;">Get a Quote</button>
                 </form>
+                <script>
+                    function showToast(message, type = "success") {
+                        let toast = document.getElementById("toast");
+                        toast.className = `toast show ${type}`;
+                        toast.innerText = message;
+                        setTimeout(() => {
+                            toast.classList.remove("show");
+                        }, 3000); // Hide after 3 seconds
+                        }
+
+
+
+                    document.getElementById("quoteForm").addEventListener("submit", async function(event) {
+                      event.preventDefault();
+                  
+                      let formData = {
+                        name: document.getElementById("name").value,
+                        email: document.getElementById("email").value,
+                        phone: document.getElementById("phone").value,
+                        message: document.getElementById("reason").value
+                      };
+                  
+                      try {
+                        let response = await fetch("http://localhost:5000/send-email", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify(formData)
+                        });
+                  
+                        let result = await response.json();
+                        // console.log(result);
+                        if (result.success) {
+                        //   alert("Quote request sent successfully!");
+                        showToast("Quote request sent successfully!", "success");
+                        // Clear form fields after success
+                        document.getElementById("name").value = "";
+                        document.getElementById("email").value = "";
+                        document.getElementById("phone").value = "";
+                        document.getElementById("reason").value = "";
+                        } else {
+                        //   alert("Failed to send request. Try again.");
+                        showToast("Failed to send request. Try again.", "error");
+                        }
+                      } catch (error) {
+                        // alert("Error sending request.");
+                        showToast("Error sending request.", "error");
+                      }
+                    });
+                  </script>
+                  
             </div>
         </div>
     </div>
@@ -939,6 +989,10 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+
+        <!-- toast div -->
+        <div id="toast" class="toast"></div>
+
     </body>
 
 </html>

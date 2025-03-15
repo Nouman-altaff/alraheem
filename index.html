@@ -100,15 +100,9 @@
                         <h1 class="text-white fw-bold d-flex align-items-left">
                             <div style="display: inline-block; margin-left: 0;">
                                 <img style="width: 50px; border-radius: 50%;" src="logo/logo.jpeg" alt="Logo"> 
-                                <span class="ms-2" style="font-size: 1.2rem;">Al-Raheem<span class="text-secondary"> Technologies </span> 
-                                <span class="ms-2" style="font-size: 0.8rem;">Pvt Ltd</span></span>
-
-
-                              </div>
-                                
-                            </span></span>
-                            
-                            
+                                <span class="ms-2" style="font-size: 1.2rem;">Al-Raheem<span class="text-secondary"> Technologies</span> 
+                                <span style="font-size: 0.8rem;">Pvt Ltd</span></span>
+                            </div>
                         </h1>
                     </a>
                 
@@ -222,7 +216,7 @@
                                 <h1 class="text-white display-1 mb-4 animated fadeInRight">Turn Ideas Into Reality</h1>
                                 <!-- <p class="mb-4 text-white fs-5 animated fadeInDown">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum. Pellentesque aliquam dolor eget urna ultricies tincidunt.</p> -->
                                 <a href="blog.html" class="me-2"><button type="button" class="btn btn-primary rounded-pill carousel-content-btn1 animated fadeInLeft" style="padding: 12px 24px; margin: 0 10px;">Read More</button></a>
-                                <a href="contact.html" class="ms-2"><button type="button" class="btn btn-primary rounded-pill carousel-content-btn2 animated fadeInRight" style="padding: 12px 24px; margin: 0 10px;">Contact Us</button></a>
+                                <a href="contact.html" class="me-2"><button type="button" class="btn btn-primary rounded-pill carousel-content-btn2 animated fadeInRight" style="padding: 12px 24px; margin: 0 10px;">Contact Us</button></a>
                                 <a href="GetAQuote.html" class="me-2"><button type="button" class="btn btn-primary rounded-pill carousel-content-btn3 animated fadeInLeft" style="padding: 12px 24px; margin: 0 10px;">Get A Quote</button></a>
                             </div>
                         </div>
@@ -825,22 +819,72 @@
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-                    <div class="p-5 rounded contact-form">
-                        <div class="mb-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Your Name">
-                        </div>
-                        <div class="mb-4">
-                            <input type="email" class="form-control border-0 py-3" placeholder="Your Email">
-                        </div>
-                        <div class="mb-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Project">
-                        </div>
-                        <div class="mb-4">
-                            <textarea class="w-100 form-control border-0 py-3" rows="6" cols="10" placeholder="Message"></textarea>
-                        </div>
-                        <div class="text-start">
-                            <button class="btn bg-primary text-white py-3 px-5" type="button">Send Message</button>
-                        </div>
+                    <div class="p-5 rounded contact-form"
+                    >
+                        <form id="contactform">
+                            <div class="mb-4">
+                                <input id="cname" required type="text" class="form-control border-0 py-2" placeholder="Your Name">
+                            </div>
+                            <div class="mb-4">
+                                <input id="cemail" required type="email" class="form-control border-0 py-2" placeholder="Your Email">
+                            </div>
+                            <div class="mb-4">
+                                <input id="cphone" required type="text" class="form-control border-0 py-2" placeholder="Phone">
+                            </div>
+                            <div class="mb-4">
+                                <textarea id="cmessage" required class="w-100 form-control border-0 py-2" rows="3" cols="10" placeholder="Message"></textarea>
+                            </div>
+                            <div class="text-start">
+                                <button type="submit" class="btn bg-primary text-white py-2 px-3" type="button">Send Message</button>
+                            </div>
+                        </form>
+                        <script>
+                            function showToast(message, type = "success") {
+                                let toast = document.getElementById("toast");
+                                toast.className = `toast show ${type}`;
+                                toast.innerText = message;
+                                setTimeout(() => {
+                                    toast.classList.remove("show");
+                                }, 3000); // Hide after 3 seconds
+                                }
+        
+                            document.getElementById("contactform").addEventListener("submit", async function(event) {
+                              event.preventDefault();
+                          
+                              let formData = {
+                                name: document.getElementById("cname").value,
+                                email: document.getElementById("cemail").value,
+                                phone: document.getElementById("cphone").value,
+                                message: document.getElementById("cmessage").value
+                              };
+                          
+                              try {
+                                let response = await fetch("http://localhost:5000/send-email", {
+                                  method: "POST",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify(formData)
+                                });
+                          
+                                let result = await response.json();
+                                // console.log(result);
+                                if (result.success) {
+                                //   alert("Quote request sent successfully!");
+                                showToast("Contact message sent successfully!", "success");
+                                // Clear form fields after success
+                                document.getElementById("cname").value = "";
+                                document.getElementById("cemail").value = "";
+                                document.getElementById("cphone").value = "";
+                                document.getElementById("cmessage").value = "";
+                                } else {
+                                //   alert("Failed to send request. Try again.");
+                                showToast("Failed to send message. Try again.", "error");
+                                }
+                              } catch (error) {
+                                // alert("Error sending request.");
+                                showToast("Error sending message.", "error");
+                              }
+                            });
+                          </script>
                     </div>
                 </div>
             </div>
@@ -1000,6 +1044,9 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+
+        <!-- toast div -->
+        <div id="toast" class="toast"></div>
     </body>
 
 </html>

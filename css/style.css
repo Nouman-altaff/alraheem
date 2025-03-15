@@ -1,3 +1,39 @@
+
+/* toast css */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 15px;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    font-size: 17px;
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+}
+
+.toast.success {
+    background-color: #28a745; /* Green for success */
+}
+
+.toast.error {
+    background-color: #dc3545; /* Red for error */
+}
+
+
+
 /* video container start */
 .video-container {
     position: relative;
@@ -682,11 +718,13 @@
 }
 
 .contact-map {
-    background: #26d48c;
+    /* background: #26d48c; */
+    background: #111010;
 }
 
 .contact-form {
-    background: #26d48c;
+    /* background: #26d48c; */
+    background: #111010;
 }
 
 /*** Contact End ***/

@@ -85,15 +85,11 @@
                     <a href="index.html" class="navbar-brand">
                         <h1 class="text-white fw-bold d-flex align-items-left">
                             <div style="display: inline-block; margin-left: 0;">
-                                <img style="width: 50px; border-radius: 50%;" src="logo/logo.jpeg" alt="Logo"> <span class="ms-2" style="font-size: 1.2rem;">Al-Raheem<span class="text-secondary"> Technologies </span> <span class="ms-2" style="font-size: 0.8rem;">Pvt Ltd</span></span>
-
-
-
-                              </div>
-                                
-                            </span></span>
-                            
-                            
+                                <img style="width: 50px; border-radius: 50%;" src="logo/logo.jpeg" alt="Logo"> 
+                                <span class="ms-2" style="font-size: 1.2rem;">Al-Raheem
+                                    <span class="text-secondary"> Technologies </span> 
+                                <span style="font-size: 0.8rem;">Pvt Ltd</span></span>
+                            </div>
                         </h1>
                     </a>
                 
@@ -278,28 +274,78 @@
                         </div>
                     </div>
                     <div class="row g-5">
-                        <div class="col-lg-6 wow fadeIn" data-wow-delay=".3s">
+                        <div class="col-lg-6 bg wow fadeIn" data-wow-delay=".3s">
                             <div class="p-5 h-100 rounded contact-map">
                                 <iframe class="rounded w-100 h-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3322.913261918179!2d73.0973557744611!3d33.60755494108241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfeb6bb5c0b649%3A0xb15572084afd9b0e!2sNational%20Aerospace%20Science%20and%20Technology%20Park%20(NASTP)!5e0!3m2!1sen!2s!4v1741612067527!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                         </div>
                         <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-                            <div class="p-5 rounded contact-form">
-                                <div class="mb-4">
-                                    <input type="text" class="form-control border-0 py-3" placeholder="Your Name">
-                                </div>
-                                <div class="mb-4">
-                                    <input type="email" class="form-control border-0 py-3" placeholder="Your Email">
-                                </div>
-                                <div class="mb-4">
-                                    <input type="text" class="form-control border-0 py-3" placeholder="Project">
-                                </div>
-                                <div class="mb-4">
-                                    <textarea class="w-100 form-control border-0 py-3" rows="6" cols="10" placeholder="Message"></textarea>
-                                </div>
-                                <div class="text-start">
-                                    <button class="btn bg-primary text-white py-3 px-5" type="button">Send Message</button>
-                                </div>
+                            <div class="p-5 rounded contact-form" 
+                            >
+                                <form id="contactform">
+                                    <div class="mb-4">
+                                        <input id="cname" required type="text" class="form-control border-0 py-2" placeholder="Your Name">
+                                    </div>
+                                    <div class="mb-4">
+                                        <input id="cemail" required type="email" class="form-control border-0 py-2" placeholder="Your Email">
+                                    </div>
+                                    <div class="mb-4">
+                                        <input id="cphone" required type="text" class="form-control border-0 py-2" placeholder="Phone">
+                                    </div>
+                                    <div class="mb-4">
+                                        <textarea id="cmessage" required class="w-100 form-control border-0 py-2" rows="6" cols="10" placeholder="Message"></textarea>
+                                    </div>
+                                    <div class="text-start">
+                                        <button type="submit" class="btn bg-primary text-white py-2 px-3" type="button">Send Message</button>
+                                    </div>
+                                </form>
+                                <script>
+                                    function showToast(message, type = "success") {
+                                        let toast = document.getElementById("toast");
+                                        toast.className = `toast show ${type}`;
+                                        toast.innerText = message;
+                                        setTimeout(() => {
+                                            toast.classList.remove("show");
+                                        }, 3000); // Hide after 3 seconds
+                                        }
+                
+                                    document.getElementById("contactform").addEventListener("submit", async function(event) {
+                                      event.preventDefault();
+                                  
+                                      let formData = {
+                                        name: document.getElementById("cname").value,
+                                        email: document.getElementById("cemail").value,
+                                        phone: document.getElementById("cphone").value,
+                                        message: document.getElementById("cmessage").value
+                                      };
+                                  
+                                      try {
+                                        let response = await fetch("http://localhost:5000/send-email", {
+                                          method: "POST",
+                                          headers: { "Content-Type": "application/json" },
+                                          body: JSON.stringify(formData)
+                                        });
+                                  
+                                        let result = await response.json();
+                                        // console.log(result);
+                                        if (result.success) {
+                                        //   alert("Quote request sent successfully!");
+                                        showToast("Quote request sent successfully!", "success");
+                                        // Clear form fields after success
+                                        document.getElementById("cname").value = "";
+                                        document.getElementById("cemail").value = "";
+                                        document.getElementById("cphone").value = "";
+                                        document.getElementById("cmessage").value = "";
+                                        } else {
+                                        //   alert("Failed to send request. Try again.");
+                                        showToast("Failed to send request. Try again.", "error");
+                                        }
+                                      } catch (error) {
+                                        // alert("Error sending request.");
+                                        showToast("Error sending request.", "error");
+                                      }
+                                    });
+                                  </script>
                             </div>
                         </div>
                     </div>
@@ -384,6 +430,9 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+
+        <!-- toast div -->
+        <div id="toast" class="toast"></div>
     </body>
 
 </html>
